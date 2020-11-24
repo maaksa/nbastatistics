@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -14,7 +15,7 @@ import java.util.List;
 @Table(name = "game")
 public class Game {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
@@ -22,8 +23,25 @@ public class Game {
 
     private long hostId;
 
-    @OneToMany
+    @OneToMany(mappedBy = "game")
     private List<Event> events;
 
+    public Game(long guestId, long hostId, List<Event> events) {
+        this.guestId = guestId;
+        this.hostId = hostId;
+        this.events = events;
+    }
+
+    public Game() {
+        events = new ArrayList<>();
+    }
+
+    public void addEvent(Event event) {
+        if (events == null) {
+            events = new ArrayList<>();
+        }
+        events.add(event);
+        event.setGame(this);
+    }
 
 }

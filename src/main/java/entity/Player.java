@@ -15,15 +15,15 @@ import javax.persistence.*;
 public class Player {
 
     @Id
-    private long Id;
+    private long id;
 
     @ManyToOne()
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "id")
     private Team team;
 
-    private String name;
+    private String firstName;
 
-    private String surname;
+    private String lastName;
 
     private int number;
 
@@ -33,17 +33,19 @@ public class Player {
 
     private Position position;
 
-    public Player(Team team, String name, String surname, int number, int height, int age, Position position) {
+    public Player(long id, Team team, String firstName, String lastName, int number, int height, int age, Position position) {
+        this.id = id;
         this.team = team;
-        this.name = name;
-        this.surname = surname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.number = number;
         this.height = height;
         this.age = age;
         this.position = position;
     }
 
-    public Player() {}
+    public Player() {
+    }
 
 
 }

@@ -14,21 +14,33 @@ import javax.persistence.*;
 @Table(name = "event")
 public class Event {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
-    private long game;
-
     private Type type;
 
-    private Payload payload;
+    private long hostId;
 
-    public Event(long game, Type type, Payload payload) {
-        this.game = game;
+    private long guestId;
+
+    private long playerId;
+
+    private int value;
+
+    @ManyToOne()
+    @JoinColumn(name = "Id")
+    private Game game;
+
+    public Event(Type type, long hostId, long guestId, long playerId, int value, Game game) {
         this.type = type;
-        this.payload = payload;
+        this.hostId = hostId;
+        this.guestId = guestId;
+        this.playerId = playerId;
+        this.value = value;
+        this.game = game;
     }
 
-    public Event() {}
+    public Event() {
+    }
 }

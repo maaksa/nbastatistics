@@ -16,7 +16,7 @@ import java.util.List;
 public class Team {
 
     @Id
-    private long Id;
+    private long id;
 
     private String name;
 
@@ -30,7 +30,7 @@ public class Team {
         this.city = city;
     }
 
-    public Team(){
+    public Team() {
         players = new ArrayList<>();
     }
 
@@ -41,7 +41,5 @@ public class Team {
         players.add(player);
         player.setTeam(this);
     }
-
-
 
 }
