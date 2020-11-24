@@ -15,11 +15,11 @@ import javax.persistence.*;
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
-    //manyToOne?
-    private long teamId;
+    @ManyToOne()
+    @JoinColumn(name = "Id")
+    private Team team;
 
     private String name;
 
@@ -33,8 +33,8 @@ public class Player {
 
     private Position position;
 
-    public Player(long teamId, String name, String surname, int number, int height, int age, Position position) {
-        this.teamId = teamId;
+    public Player(Team team, String name, String surname, int number, int height, int age, Position position) {
+        this.team = team;
         this.name = name;
         this.surname = surname;
         this.number = number;
@@ -42,4 +42,8 @@ public class Player {
         this.age = age;
         this.position = position;
     }
+
+    public Player() {}
+
+
 }

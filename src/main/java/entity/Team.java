@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -14,17 +16,32 @@ import javax.persistence.*;
 public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
     private String name;
 
     private String city;
 
+    @OneToMany(mappedBy = "team")
+    private List<Player> players;
 
     public Team(String name, String city) {
         this.name = name;
         this.city = city;
     }
+
+    public Team(){
+        players = new ArrayList<>();
+    }
+
+    public void addPlayer(Player player) {
+        if (players == null) {
+            players = new ArrayList<>();
+        }
+        players.add(player);
+        player.setTeam(this);
+    }
+
+
 
 }

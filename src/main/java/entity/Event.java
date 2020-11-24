@@ -14,6 +14,10 @@ import javax.persistence.*;
 @Table(name = "event")
 public class Event {
 
+    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long Id;
+
     private long game;
 
     private Type type;
@@ -25,4 +29,6 @@ public class Event {
         this.type = type;
         this.payload = payload;
     }
+
+    public Event() {}
 }
