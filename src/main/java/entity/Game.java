@@ -21,18 +21,18 @@ public class Game {
 
     @ManyToOne()
     @JoinColumn(name = "Id")
-    private Team guestId;
+    private Team guestTeam;
 
     @ManyToOne()
     @JoinColumn(name = "Id")
-    private Team hostId;
+    private Team hostTeam;
 
     @OneToMany(mappedBy = "game")
     private List<Event> events;
 
-    public Game(Team guestId, Team hostId) {
-        this.guestId = guestId;
-        this.hostId = hostId;
+    public Game(Team guestTeam, Team hostTeam) {
+        this.guestTeam = guestTeam;
+        this.hostTeam = hostTeam;
     }
 
     public Game() {

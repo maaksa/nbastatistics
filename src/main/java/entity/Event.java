@@ -18,21 +18,22 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
+    @Enumerated(EnumType.STRING)
     private Type type;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "id")
-    private Player playerId;
+    private Player player;
 
     private int value;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "Id")
     private Game game;
 
-    public Event(Type type, Player playerId, int value, Game game) {
+    public Event(Type type, Player player, int value, Game game) {
         this.type = type;
-        this.playerId = playerId;
+        this.player = player;
         this.value = value;
         this.game = game;
     }

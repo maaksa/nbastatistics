@@ -6,8 +6,16 @@ import java.util.List;
 
 public interface PlayerService {
 
-    public List<Player> findAll();
+    List<Player> findAll();
 
-    public Player findById(long theId);
+    Player findById(long id);
+
+    int totalPoints(long id);
+
+    double averagePoints(long id);
+
+    double averageAssists(long id);
+
+    double averageRebounds(long id);
 
 }

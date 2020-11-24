@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -22,10 +21,10 @@ public class Team {
 
     private String city;
 
-    @OneToMany(mappedBy = "hostId")
+    @OneToMany(mappedBy = "hostTeam")
     private List<Game> gamesHost;
 
-    @OneToMany(mappedBy = "guestId")
+    @OneToMany(mappedBy = "guestTeam")
     private List<Game> gamesGuest;
 
     @OneToMany(mappedBy = "team")
