@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class Team {
+public class JsonTeam {
 
     private long id;
 
@@ -22,11 +22,11 @@ public class Team {
 
     private String city;
 
-    public Team(String name, String city) {
+    public JsonTeam(String name, String city) {
         this.name = name;
         this.city = city;
     }
 
-    public Team(){}
+    public JsonTeam(){}
 
 }

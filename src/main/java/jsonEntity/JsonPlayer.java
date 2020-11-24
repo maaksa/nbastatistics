@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
-public class Player {
+public class JsonPlayer {
 
     private long id;
 
@@ -28,7 +28,7 @@ public class Player {
 
     private Position position;
 
-    public Player() {}
+    public JsonPlayer() {}
 
 
 }

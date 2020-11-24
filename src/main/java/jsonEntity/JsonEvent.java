@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Setter
 @Getter
 @ToString
-public class Event {
+public class JsonEvent {
 
     private long game;
 
@@ -21,11 +21,11 @@ public class Event {
 
     private Payload payload;
 
-    public Event(long game, Type type, Payload payload) {
+    public JsonEvent(long game, Type type, Payload payload) {
         this.game = game;
         this.type = type;
         this.payload = payload;
     }
 
-    public Event() {}
+    public JsonEvent() {}
 }
