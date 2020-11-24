@@ -22,6 +22,12 @@ public class Team {
 
     private String city;
 
+    @OneToMany(mappedBy = "hostId")
+    private List<Game> gamesHost;
+
+    @OneToMany(mappedBy = "guestId")
+    private List<Game> gamesGuest;
+
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
@@ -31,15 +37,8 @@ public class Team {
     }
 
     public Team() {
-        players = new ArrayList<>();
+
     }
 
-    public void addPlayer(Player player) {
-        if (players == null) {
-            players = new ArrayList<>();
-        }
-        players.add(player);
-        player.setTeam(this);
-    }
 
 }

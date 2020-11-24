@@ -19,29 +19,23 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
-    private long guestId;
+    @ManyToOne()
+    @JoinColumn(name = "Id")
+    private Team guestId;
 
-    private long hostId;
+    @ManyToOne()
+    @JoinColumn(name = "Id")
+    private Team hostId;
 
     @OneToMany(mappedBy = "game")
     private List<Event> events;
 
-    public Game(long guestId, long hostId, List<Event> events) {
+    public Game(Team guestId, Team hostId) {
         this.guestId = guestId;
         this.hostId = hostId;
-        this.events = events;
     }
 
     public Game() {
-        events = new ArrayList<>();
-    }
-
-    public void addEvent(Event event) {
-        if (events == null) {
-            events = new ArrayList<>();
-        }
-        events.add(event);
-        event.setGame(this);
     }
 
 }

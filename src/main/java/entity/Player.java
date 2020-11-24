@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,6 +22,9 @@ public class Player {
     @ManyToOne()
     @JoinColumn(name = "id")
     private Team team;
+
+    @OneToMany(mappedBy = "playerId")
+    private List<Event> events;
 
     private String firstName;
 
