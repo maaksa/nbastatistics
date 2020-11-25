@@ -15,12 +15,10 @@ import com.nbastat.springboot.nbaStatistics.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.nbastat.springboot.nbaStatistics.service.TeamService;
-
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -55,7 +53,6 @@ public class Loader {
 
             for (Team t : teams) {
                 teamService.save(t);
-                // TODO dodati Team objekat u bazu preko servisa
             }
 
         } catch (Exception e) {
@@ -90,15 +87,13 @@ public class Loader {
                 player.setTeam(t);
 
                 playerService.save(player);
-                // TODO dodati Team objekat po teamId vrednosti
-                // TODO dodati u bazu preko servisa
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    // TODO logovati  nevalidne
     public void loadEvents() {
 
         List<Player> playersHost = null;
@@ -116,7 +111,6 @@ public class Loader {
             List<JsonEvent> events = mapper.readValue(contentBuilder.toString(), typeRef);
 
             for (int i = 0; i < events.size(); i++) {
-                System.out.println(events.get(i));
                 JsonEvent jsonEvent = events.get(i);
                 Event event = new Event();
                 event.setType(jsonEvent.getType());

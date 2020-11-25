@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.nbastat.springboot.nbaStatistics.service.PlayerService;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -79,5 +79,13 @@ public class PlayerController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/Query5")
+    public ResponseEntity<Object> doubles(Model model) {
+
+            playerService.doubledouble();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 }

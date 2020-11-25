@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface PlayerService {
 
+    List<Player> doubledouble();
+
     List<Player> findAll();
 
     List<Player> findAllbyTeam(long id);

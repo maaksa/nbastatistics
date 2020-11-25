@@ -6,8 +6,9 @@ import com.nbastat.springboot.nbaStatistics.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -20,13 +21,34 @@ public class PlayerServiceImpl implements PlayerService {
         this.playerRepository = playerRepository;
     }
 
+    @Override
     public List<Player> doubledouble() {
         List<Player> allPlayers = findAll();
-        for (Player p : allPlayers) {
+        HashMap<Player, Integer> doubles = new HashMap<>();/*
+        for (Player p: allPlayers){
             int points = totalPoints(p.getIdPlayer());
             int jumps = totalJumps(p.getIdPlayer());
             int assists = totalAssists(p.getIdPlayer());
-        }
+            int maxDouble = 0;
+            if (points > 9 && jumps > 9){
+                if (points+jumps > maxDouble)
+                    maxDouble = points+jumps;
+            }
+            if (points > 9 && assists > 9){
+                if (points+assists > maxDouble)
+                    maxDouble = points+assists;
+            }
+            if (jumps > 9 && assists > 9){
+                if (jumps+assists > maxDouble)
+                    maxDouble = jumps+assists;
+            }
+            doubles.put(p, maxDouble);
+        } */
+        //Stream<Map.Entry<Player,Integer>> sorted = doubles.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()));
+
+        //Map top5 = sorted.limit(5).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+        System.out.println(allPlayers);
+
         return null;
     }
 
