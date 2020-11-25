@@ -1,12 +1,14 @@
 package com.nbastat.springboot.nbaStatistics.service;
 
 import com.nbastat.springboot.nbaStatistics.entity.Player;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayer;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayerMinimal;
 
 import java.util.List;
 
 public interface PlayerService {
 
-    List<Player> doubledouble();
+    List<JsonPlayerMinimal> doubledouble();
 
     List<Player> findAll();
 

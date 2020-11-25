@@ -1,9 +1,13 @@
 package com.nbastat.springboot.nbaStatistics.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.nbastat.springboot.nbaStatistics.entity.Player;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayer;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayerMinimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +21,7 @@ import com.nbastat.springboot.nbaStatistics.service.PlayerService;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -83,9 +88,21 @@ public class PlayerController {
 
     @GetMapping("/Query5")
     public ResponseEntity<Object> doubles(Model model) {
+        try {
+            List<JsonPlayerMinimal> players = playerService.doubledouble();
 
-            playerService.doubledouble();
+            ObjectMapper objectMapper = new ObjectMapper();
+            String string = objectMapper.writeValueAsString(players);
+            System.out.println(string);
+
+            return new ResponseEntity<Object>(string, HttpStatus.ACCEPTED);
+
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
     }
+
+
 }

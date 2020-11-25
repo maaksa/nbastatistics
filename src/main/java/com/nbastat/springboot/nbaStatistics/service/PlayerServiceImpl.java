@@ -1,6 +1,8 @@
 package com.nbastat.springboot.nbaStatistics.service;
 
 import com.nbastat.springboot.nbaStatistics.entity.Player;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayer;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayerMinimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.nbastat.springboot.nbaStatistics.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,9 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<Player> doubledouble() {
+    public List<JsonPlayerMinimal> doubledouble() {
         List<Player> allPlayers = findAll();
-        HashMap<Player, Integer> doubles = new HashMap<>();/*
+        HashMap<Player, Integer> doubles = new HashMap<>();
         for (Player p: allPlayers){
             int points = totalPoints(p.getIdPlayer());
             int jumps = totalJumps(p.getIdPlayer());
@@ -43,13 +45,21 @@ public class PlayerServiceImpl implements PlayerService {
                     maxDouble = jumps+assists;
             }
             doubles.put(p, maxDouble);
-        } */
-        //Stream<Map.Entry<Player,Integer>> sorted = doubles.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()));
+        }
+        Stream<Map.Entry<Player,Integer>> sorted = doubles.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()));
+        Map top5 = sorted.limit(5).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
 
-        //Map top5 = sorted.limit(5).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
-        System.out.println(allPlayers);
+        List<JsonPlayerMinimal> result = new ArrayList<>();
+        for (Object o: top5.keySet()){
+            Player p = (Player)o;
+            JsonPlayerMinimal jp = new JsonPlayerMinimal();
+            jp.setFirstName(p.getFirstName());
+            jp.setLastName(p.getLastName());
+            jp.setId(p.getIdPlayer());
+            result.add(jp);
+        }
 
-        return null;
+        return result;
     }
 
     @Override
