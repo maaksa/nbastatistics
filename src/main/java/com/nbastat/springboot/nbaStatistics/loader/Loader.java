@@ -54,7 +54,6 @@ public class Loader {
             List<Team> teams = mapper.readValue(contentBuilder.toString(), typeRef);
 
             for (Team t : teams) {
-                System.out.println(t.getId());
                 teamService.save(t);
                 // TODO dodati Team objekat u bazu preko servisa
             }
@@ -91,7 +90,6 @@ public class Loader {
                 player.setTeam(t);
 
                 playerService.save(player);
-                System.out.println(player.getFirstName());
                 // TODO dodati Team objekat po teamId vrednosti
                 // TODO dodati u bazu preko servisa
             }
@@ -122,7 +120,6 @@ public class Loader {
                 JsonEvent jsonEvent = events.get(i);
                 Event event = new Event();
                 event.setType(jsonEvent.getType());
-                System.out.println(jsonEvent.getType());
                 if (jsonEvent.getPayload().get("value") != null) {
                     if (jsonEvent.getType().equals(Type.ASSIST) && jsonEvent.getPayload().get("value") == 1) {
                         JsonEvent tempJsonEvent = events.get(i + 1);
