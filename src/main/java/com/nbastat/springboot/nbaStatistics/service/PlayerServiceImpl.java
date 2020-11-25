@@ -19,11 +19,16 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerServiceImpl(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
-/*
+
     public List<Player> doubledouble() {
         List<Player> allPlayers = findAll();
-
-    } */
+        for (Player p: allPlayers){
+            int points = totalPoints(p.getIdPlayer());
+            int jumps = totalJumps(p.getIdPlayer());
+            int assists = totalAssists(p.getIdPlayer());
+        }
+        return null;
+    }
 
     @Override
     public List<Player> findAll() {
@@ -58,6 +63,16 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public int totalPoints(long id) {
         return playerRepository.totalPoints(id);
+    }
+
+    @Override
+    public int totalJumps(long id) {
+        return playerRepository.totalJumps(id);
+    }
+
+    @Override
+    public int totalAssists(long id) {
+        return playerRepository.totalAssists(id);
     }
 
     @Override

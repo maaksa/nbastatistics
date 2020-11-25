@@ -16,6 +16,10 @@ public interface PlayerService {
 
     int totalPoints(long id);
 
+    int totalJumps(long id);
+
+    int totalAssists(long id);
+
     double averagePoints(long id);
 
     double averageAssists(long id);
