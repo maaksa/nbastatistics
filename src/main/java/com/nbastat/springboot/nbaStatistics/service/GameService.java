@@ -22,10 +22,10 @@ public interface GameService {
 
     Team awayTeam(long id);
 
-    int totalPointsForPlayer(long gameId, long playerId);
+    Integer totalPointsForPlayer(long gameId, long playerId);
 
-    int totalAssistsForPlayer(long gameId, long playerId);
+    Integer totalAssistsForPlayer(long gameId, long playerId);
 
-    int totalJumpsForPlayer(long gameId, long playerId);
+    Integer totalJumpsForPlayer(long gameId, long playerId);
 
 }
