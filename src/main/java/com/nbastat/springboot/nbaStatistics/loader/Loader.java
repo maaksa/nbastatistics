@@ -171,7 +171,7 @@ public class Loader {
                 } else {
                     Game game = gameService.findById(jsonEvent.getGame());
                     if(game.isFinished()){
-                        return; //error
+                        continue;
                     }
 
                     Team tHost = game.getHostTeam();
