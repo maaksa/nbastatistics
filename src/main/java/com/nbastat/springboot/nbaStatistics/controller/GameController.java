@@ -30,9 +30,9 @@ public class GameController {
         List<Map<String, Object>> mapList = new ArrayList<>();
         for (Game game : games) {
             Map<String, Object> map = new HashMap<>();
-            map.put("homeTeam", gameService.homeTeam(game.getIdGame()));
+            map.put("homeTeam", gameService.homeTeam(game.getIdGame()).getName());
             map.put("homePoints", gameService.pointsForHostTeam(game.getIdGame()));
-            map.put("awayTeam", gameService.awayTeam(game.getIdGame()));
+            map.put("awayTeam", gameService.awayTeam(game.getIdGame()).getName());
             map.put("awayPoints", gameService.pointsForAwayTeam(game.getIdGame()));
             mapList.add(map);
         }

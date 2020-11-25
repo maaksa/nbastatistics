@@ -13,15 +13,15 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <td>${game.get('homeTeam')} - ${game.get('awayTeam')}</td>
+                        <td th:utext="${game['homeTeam']} +' - '+ ${game['awayTeam']}"></td>
                     </tr>
                     <tr>
-                        <td>${game.get('homeTeam')}</td>
-                        <td>${game.get('homePoints')}</td>
+                        <td th:text="${game['homeTeam']}"></td>
+                        <td th:text="${game['homePoints']}"></td>
                     </tr>
                     <tr>
-                        <td>${game.get('awayTeam')}</td>
-                        <td>${game.get('awayPoints')}</td>
+                        <td th:text="${game['awayTeam']}"></td>
+                        <td th:text="${game['awayPoints']}"></td>
                     </tr>
                     <tr>
                         <td><a href="games/Query2">more details</a></td>
