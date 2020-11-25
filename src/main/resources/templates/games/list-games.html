@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Query 1</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-
+    <div class="container">
+        <div th:each="game : ${mapList}">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>${game.get('homeTeam')} - ${game.get('awayTeam')}</td>
+                    </tr>
+                    <tr>
+                        <td>${game.get('homeTeam')}</td>
+                        <td>${game.get('homePoints')}</td>
+                    </tr>
+                    <tr>
+                        <td>${game.get('awayTeam')}</td>
+                        <td>${game.get('awayPoints')}</td>
+                    </tr>
+                    <tr>
+                        <td><a href="games/Query2">more details</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

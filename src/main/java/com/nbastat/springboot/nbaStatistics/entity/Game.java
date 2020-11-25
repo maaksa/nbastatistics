@@ -24,7 +24,7 @@ public class Game {
     private Team guestTeam;
 
     @ManyToOne()
-    @JoinColumn(name = "id")
+    //@JoinColumn(name = "id")
     private Team hostTeam;
 
     @OneToMany(mappedBy = "game")

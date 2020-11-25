@@ -22,13 +22,13 @@ public class Event {
     private Type type;
 
     @ManyToOne()
-    @JoinColumn(name = "idPlayer")
+    //@JoinColumn(name = "idPlayer")
     private Player player;
 
     private int value;
 
     @ManyToOne()
-    @JoinColumn(name = "idGame")
+    //@JoinColumn(name = "idGame")
     private Game game;
 
     public Event(Type type, Player player, int value, Game game) {

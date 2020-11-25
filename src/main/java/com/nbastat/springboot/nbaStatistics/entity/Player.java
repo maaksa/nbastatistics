@@ -19,7 +19,7 @@ public class Player {
     private long idPlayer;
 
     @ManyToOne()
-    @JoinColumn(name = "id")
+    //@JoinColumn(name = "id")
     private Team team;
 
     @OneToMany(mappedBy = "player")
