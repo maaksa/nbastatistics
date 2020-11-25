@@ -21,6 +21,8 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private Type type;
 
+    private String typeString;
+
     @ManyToOne()
     //@JoinColumn(name = "idPlayer")
     private Player player;
