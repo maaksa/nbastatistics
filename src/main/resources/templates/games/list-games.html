@@ -11,20 +11,20 @@
         <!--/*@thymesVar id="mapList" type="java.util.List"*/-->
         <div th:each="game : ${games}">
             <table class="table table-bordered">
-                <tbody>
+                <tbody th:style="${game['finished'] ? 'background-color: green' : 'background-color: white'}">
                     <tr>
-                        <td th:utext="${game['homeTeam']} +' - '+ ${game['awayTeam']}"></td>
+                        <td th:utext="${game['homeTeam']} +' - '+ ${game['awayTeam']}" colspan="2"></td>
                     </tr>
                     <tr>
-                        <td th:text="${game['homeTeam']}"></td>
-                        <td th:text="${game['homePoints']}"></td>
+                        <td th:text="${game['homeTeam']}" th:style="${game['homePoints'] > game['awayPoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
+                        <td th:text="${game['homePoints']}" th:style="${game['homePoints'] > game['awayPoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
                     </tr>
                     <tr>
-                        <td th:text="${game['awayTeam']}"></td>
-                        <td th:text="${game['awayPoints']}"></td>
+                        <td th:text="${game['awayTeam']}" th:style="${game['awayPoints'] > game['homePoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
+                        <td th:text="${game['awayPoints']}" th:style="${game['awayPoints'] > game['homePoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
                     </tr>
                     <tr>
-                        <td><a href="games/Query2">more details</a></td>
+                        <td colspan="2"><a href="games/Query2">more details</a></td>
                     </tr>
                 </tbody>
             </table>

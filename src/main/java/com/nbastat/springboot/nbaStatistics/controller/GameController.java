@@ -34,6 +34,7 @@ public class GameController {
             map.put("homePoints", gameService.pointsForHostTeam(game.getIdGame()));
             map.put("awayTeam", gameService.awayTeam(game.getIdGame()).getName());
             map.put("awayPoints", gameService.pointsForAwayTeam(game.getIdGame()));
+            map.put("finished", game.isFinished());
             mapList.add(map);
         }
         model.addAttribute("games", mapList);
