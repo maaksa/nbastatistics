@@ -8,7 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <div th:each="game : ${mapList}">
+        <!--/*@thymesVar id="mapList" type="java.util.List"*/-->
+        <div th:each="game : ${games}">
             <table class="table table-bordered">
                 <tbody>
                     <tr>
