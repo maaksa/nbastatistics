@@ -2,6 +2,7 @@ package com.nbastat.springboot.nbaStatistics.service;
 
 import com.nbastat.springboot.nbaStatistics.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.nbastat.springboot.nbaStatistics.repositories.TeamRepository;
@@ -37,6 +38,11 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public List<Team> saveAll(List<Team> teams) {
         return teamRepository.saveAll(teams);
+    }
+
+    @Override
+    public List<Team> sortByWinningPercentage() {
+        return teamRepository.sortAndList();
     }
 
 }

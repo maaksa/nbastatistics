@@ -1,5 +1,6 @@
 package com.nbastat.springboot.nbaStatistics.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,14 +22,19 @@ public class Team {
 
     private String city;
 
+    private double wins;
+
     @OneToMany(mappedBy = "hostTeam")
+    @JsonIgnore
     private List<Game> gamesHost;
 
     @OneToMany(mappedBy = "guestTeam")
+    @JsonIgnore
     private List<Game> gamesGuest;
 
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "team")
+    @JsonIgnore
     private List<Player> players;
 
     public Team(String name, String city) {

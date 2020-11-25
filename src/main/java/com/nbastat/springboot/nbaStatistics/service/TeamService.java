@@ -14,4 +14,6 @@ public interface TeamService {
 
     List<Team> saveAll(List<Team> teams);
 
+    List<Team> sortByWinningPercentage();
+
 }

@@ -156,16 +156,27 @@ public class Loader {
                     eventService.save(event);
                 } else if (jsonEvent.getType().equals(Type.END)) {
                     Game game = gameService.findById(jsonEvent.getGame());
+                    Team team;
+                    if(game.getHostPoints() > game.getGuestPoints()){
+                        team = game.getHostTeam();
+                    }else {
+                        team = game.getGuestTeam();
+                    }
+                    team.setWins(team.getWins() + 1);
                     game.setFinished(true);
                     event.setGame(game);
                     eventService.save(event);
-
+                    gameService.save(game);
+                    teamService.save(team);
                 } else {
                     Game game = gameService.findById(jsonEvent.getGame());
-                    game.setFinished(false);
+                    if(game.isFinished()){
+                        return; //error
+                    }
 
                     Team tHost = game.getHostTeam();
                     Team tGuest = game.getGuestTeam();
+                    boolean isGuest = false;
 
                     if (jsonEvent.getPayload().get("playerId") != null) {
                         Player player = playerService.findById(jsonEvent.getPayload().get("playerId"));
@@ -173,17 +184,29 @@ public class Loader {
                             for (Player p : tHost.getPlayers()) {
                                 if (player.getIdPlayer() == p.getIdPlayer()) {
                                     event.setPlayer(player);
+                                    isGuest = false;
+                                    break;
                                 }
                             }
                             for (Player p : tGuest.getPlayers()) {
                                 if (player.getIdPlayer() == p.getIdPlayer()) {
                                     event.setPlayer(player);
+                                    isGuest = true;
+                                    break;
                                 }
                             }
                         }
                     }
+                    if(event.getType().equals(Type.POINT)){
+                        if(isGuest) {
+                            game.setGuestPoints(game.getGuestPoints() + event.getValue());
+                        }else{
+                            game.setHostPoints(game.getHostPoints() + event.getValue());
+                        }
+                    }
                     event.setGame(game);
                     eventService.save(event);
+                    gameService.save(game);
                 }
             }
 

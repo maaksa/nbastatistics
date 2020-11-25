@@ -27,12 +27,18 @@ public class Game {
     //@JoinColumn(name = "id")
     private Team hostTeam;
 
+    private int hostPoints;
+
+    private int guestPoints;
+
     @OneToMany(mappedBy = "game")
     private List<Event> events;
 
-    public Game(Team guestTeam, Team hostTeam) {
+    public Game(Team guestTeam, Team hostTeam, int hostPoints, int guestPoints) {
         this.guestTeam = guestTeam;
         this.hostTeam = hostTeam;
+        this.hostPoints = hostPoints;
+        this.guestPoints = guestPoints;
     }
 
     public Game() {
