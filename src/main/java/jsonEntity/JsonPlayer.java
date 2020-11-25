@@ -1,6 +1,6 @@
 package jsonEntity;
 
-import jsonEntity.enums.Position;
+import entity.enums.Position;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

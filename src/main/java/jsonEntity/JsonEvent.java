@@ -1,6 +1,6 @@
 package jsonEntity;
 
-import jsonEntity.enums.Type;
+import entity.enums.Type;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
