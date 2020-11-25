@@ -48,22 +48,22 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public int pointsForHostTeam(int id) {
+    public int pointsForHostTeam(long id) {
         return gameRepository.pointsForHostTeam(id);
     }
 
     @Override
-    public int pointsForAwayTeam(int id) {
+    public int pointsForAwayTeam(long id) {
         return gameRepository.pointsForAwayTeam(id);
     }
 
     @Override
-    public Team homeTeam(int id) {
+    public Team homeTeam(long id) {
         return gameRepository.homeTeam(id);
     }
 
     @Override
-    public Team awayTeam(int id) {
+    public Team awayTeam(long id) {
         return gameRepository.awayTeam(id);
     }
 }

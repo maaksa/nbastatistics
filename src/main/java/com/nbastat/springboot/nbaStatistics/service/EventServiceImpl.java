@@ -1,8 +1,7 @@
 package com.nbastat.springboot.nbaStatistics.service;
 
 import com.nbastat.springboot.nbaStatistics.entity.Event;
-import com.nbastat.springboot.nbaStatistics.repositories.EventRepositroy;
-import com.nbastat.springboot.nbaStatistics.repositories.GameRepository;
+import com.nbastat.springboot.nbaStatistics.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,16 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EventServiceImpl implements EventService {
 
-    private EventRepositroy eventRepositroy;
+    private EventRepository eventRepository;
 
     @Autowired
-    EventServiceImpl(EventRepositroy eventRepositroy) {
-        this.eventRepositroy = eventRepositroy;
+    EventServiceImpl(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
     }
 
 
     @Override
     public void save(Event event) {
-        eventRepositroy.save(event);
+        eventRepository.save(event);
     }
 }

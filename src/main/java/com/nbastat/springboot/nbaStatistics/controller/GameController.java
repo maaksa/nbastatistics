@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.nbastat.springboot.nbaStatistics.service.GameService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/games")
@@ -24,7 +27,17 @@ public class GameController {
     @GetMapping("/Query1")
     public String listGames(Model model){
         List<Game> games = gameService.listGames();
-        return null;
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (Game game : games) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("homeTeam", gameService.homeTeam(game.getIdGame()));
+            map.put("homePoints", gameService.pointsForHostTeam(game.getIdGame()));
+            map.put("awayTeam", gameService.awayTeam(game.getIdGame()));
+            map.put("awayPoints", gameService.pointsForAwayTeam(game.getIdGame()));
+            mapList.add(map);
+        }
+        model.addAttribute("games", mapList);
+        return "games/list-games";
     }
 
 }

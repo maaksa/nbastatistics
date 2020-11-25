@@ -14,12 +14,12 @@ public interface GameService {
 
     Game findById(long id);
 
-    int pointsForHostTeam(int id);
+    int pointsForHostTeam(long id);
 
-    int pointsForAwayTeam(int id);
+    int pointsForAwayTeam(long id);
 
-    Team homeTeam(int id);
+    Team homeTeam(long id);
 
-    Team awayTeam(int id);
+    Team awayTeam(long id);
 
 }

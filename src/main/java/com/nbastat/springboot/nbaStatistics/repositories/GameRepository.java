@@ -15,14 +15,14 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> listGames();
 
     @Query("select sum(e.value) from Game g join fetch Event e where g.idGame = :id and e.player.team.id = g.hostTeam.id")
-    int pointsForHostTeam(int id);
+    int pointsForHostTeam(long id);
 
     @Query("select sum(e.value) from Game g join fetch Event e where g.idGame = :id and e.player.team.id = g.guestTeam.id")
-    int pointsForAwayTeam(int id);
+    int pointsForAwayTeam(long id);
 
     @Query("select g.hostTeam from Game g where g.idGame =: id")
-    Team homeTeam(int id);
+    Team homeTeam(long id);
 
     @Query("select g.guestTeam from Game g where g.idGame = :id")
-    Team awayTeam(int id);
+    Team awayTeam(long id);
 }
