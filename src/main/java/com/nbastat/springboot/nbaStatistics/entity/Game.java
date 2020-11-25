@@ -15,12 +15,14 @@ import java.util.List;
 public class Game {
 
     @Id
-    private long Id;
+    private long idGame;
 
     @ManyToOne()
+    //@JoinColumn(name = "id")
     private Team guestTeam;
 
     @ManyToOne()
+    @JoinColumn(name = "id")
     private Team hostTeam;
 
     @OneToMany(mappedBy = "game")

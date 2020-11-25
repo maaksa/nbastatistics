@@ -16,17 +16,19 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long idEvent;
 
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "idPlayer")
     private Player player;
 
     private int value;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "idGame")
     private Game game;
 
     public Event(Type type, Player player, int value, Game game) {

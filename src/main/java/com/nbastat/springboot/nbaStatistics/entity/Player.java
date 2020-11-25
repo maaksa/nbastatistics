@@ -16,9 +16,10 @@ import java.util.List;
 public class Player {
 
     @Id
-    private long id;
+    private long idPlayer;
 
     @ManyToOne()
+    @JoinColumn(name = "id")
     private Team team;
 
     @OneToMany(mappedBy = "player")
@@ -36,8 +37,8 @@ public class Player {
 
     private Position position;
 
-    public Player(long id, Team team, String firstName, String lastName, int number, int height, int age, Position position) {
-        this.id = id;
+    public Player(long idPlayer, Team team, String firstName, String lastName, int number, int height, int age, Position position) {
+        this.idPlayer = idPlayer;
         this.team = team;
         this.firstName = firstName;
         this.lastName = lastName;

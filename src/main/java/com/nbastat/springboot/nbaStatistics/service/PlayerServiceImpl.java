@@ -41,6 +41,11 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    public void save(Player player) {
+        playerRepository.save(player);
+    }
+
+    @Override
     public int totalPoints(long id) {
         return playerRepository.totalPoints(id);
     }

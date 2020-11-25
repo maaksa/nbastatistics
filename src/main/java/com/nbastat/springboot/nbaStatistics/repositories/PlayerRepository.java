@@ -8,16 +8,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
-    @Query("select sum(e.value) from Player p join fetch Event e where e.player.id = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT")
+    @Query("select sum(e.value) from Player p join fetch Event e where e.player.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT")
     int totalPoints(long id);
 
-    @Query("select avg(e.value) from Player p join fetch Event e where e.player.id = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT")
+    @Query("select avg(e.value) from Player p join fetch Event e where e.player.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT")
     double averagePoints(long id);
 
-    @Query("select avg(e.value) from Player p join fetch Event e where e.player.id = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.ASSIST")
+    @Query("select avg(e.value) from Player p join fetch Event e where e.player.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.ASSIST")
     double averageAssists(long id);
 
-    @Query("select avg(e.value) from Player p join fetch Event e where e.player.id = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.JUMP")
+    @Query("select avg(e.value) from Player p join fetch Event e where e.player.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.JUMP")
     double averageRebounds(long id);
 
 }

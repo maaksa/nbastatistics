@@ -9,6 +9,9 @@ import com.nbastat.springboot.nbaStatistics.entity.Team;
 import com.nbastat.springboot.nbaStatistics.entity.enums.Type;
 import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonEvent;
 import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayer;
+import com.nbastat.springboot.nbaStatistics.service.EventService;
+import com.nbastat.springboot.nbaStatistics.service.GameService;
+import com.nbastat.springboot.nbaStatistics.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.nbastat.springboot.nbaStatistics.service.TeamService;
@@ -23,17 +26,24 @@ import java.util.stream.Stream;
 @Component("loader")
 public class Loader {
 
+    private GameService gameService;
+    private PlayerService playerService;
     private TeamService teamService;
+    private EventService eventService;
 
     @Autowired
-    public Loader(TeamService teamService){
+    public Loader(EventService eventService, TeamService teamService, GameService gameService, PlayerService playerService) {
         this.teamService = teamService;
+        this.eventService = eventService;
+        this.playerService = playerService;
+        this.gameService = gameService;
     }
 
-    public void loadTeams(){
+    public void loadTeams() {
 
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<Team>> typeRef = new TypeReference<List<Team>>(){};
+        TypeReference<List<Team>> typeRef = new TypeReference<List<Team>>() {
+        };
         File file = new File("data\\teams.json");
         String path = file.getAbsolutePath();
         try {
@@ -53,10 +63,11 @@ public class Loader {
         }
     }
 
-    public void loadPlayers(){
+    public void loadPlayers() {
 
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<JsonPlayer>> typeRef = new TypeReference<List<JsonPlayer>>(){};
+        TypeReference<List<JsonPlayer>> typeRef = new TypeReference<List<JsonPlayer>>() {
+        };
         File file = new File("data\\players.json");
         String path = file.getAbsolutePath();
         try {
@@ -67,13 +78,19 @@ public class Loader {
 
             for (JsonPlayer p : players) {
                 Player player = new Player();
-                player.setId(p.getId());
+                player.setIdPlayer(p.getId());
                 player.setFirstName(p.getFirstName());
                 player.setLastName(p.getLastName());
                 player.setNumber(p.getNumber());
                 player.setHeight(p.getHeight());
                 player.setAge(p.getAge());
-                player.setPosition(p.getPosition());
+                player.setPosition(p.getPosition());//provera
+
+                Team t = teamService.findById(p.getTeamId());
+                player.setTeam(t);
+
+                playerService.save(player);
+                System.out.println(player.getFirstName());
                 // TODO dodati Team objekat po teamId vrednosti
                 // TODO dodati u bazu preko servisa
             }
@@ -83,12 +100,13 @@ public class Loader {
         }
     }
 
-    public void loadEvents(){
+    public void loadEvents() {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<JsonEvent>> typeRef = new TypeReference<List<JsonEvent>>(){};
-        File file = new File("data\\events.json");
+        TypeReference<List<JsonEvent>> typeRef = new TypeReference<List<JsonEvent>>() {
+        };
+        File file = new File("data\\events_full.json");
         String path = file.getAbsolutePath();
         try {
             Stream<String> stream = Files.lines(Paths.get(path), StandardCharsets.UTF_8);
@@ -100,15 +118,30 @@ public class Loader {
                 System.out.println(jsonEvent);
                 Event event = new Event();
                 event.setType(jsonEvent.getType());
+                System.out.println(jsonEvent.getType());
                 if (jsonEvent.getPayload().get("value") != null)
                     event.setValue(jsonEvent.getPayload().get("value"));
-                if (jsonEvent.getType().equals(Type.START)){
+                if (jsonEvent.getType().equals(Type.START)) {
                     Game game = new Game();
-                    game.setId(jsonEvent.getGame());
+                    game.setIdGame(jsonEvent.getGame());
+                    Team tHost = teamService.findById(jsonEvent.getPayload().get("hostId"));
+                    Team tGuest = teamService.findById(jsonEvent.getPayload().get("guestId"));
+                    game.setHostTeam(tHost);
+                    game.setGuestTeam(tGuest);
+                    gameService.save(game);
+                    event.setGame(game);
+                    eventService.save(event);
                     // game.setGuestId();       // TODO naci guest i host tim po id-jevima iz payload mape i dodati objekte
                     // game.setHostId();
                     // TODO dodati ovaj novi game objekat u bazu i kao atribut eventu
-                }  else {
+                } else {
+                    Game game = gameService.findById(jsonEvent.getGame());
+                    if (jsonEvent.getPayload().get("playerId") != null) {
+                        Player player = playerService.findById(jsonEvent.getPayload().get("playerId"));
+                        event.setPlayer(player);
+                    }
+                    event.setGame(game);
+                    eventService.save(event);
                     // TODO naci game objekat po id-ju i dodati eventu kao atribut
                 }
 

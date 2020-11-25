@@ -10,6 +10,8 @@ public interface PlayerService {
 
     Player findById(long id);
 
+    void save(Player player);
+
     int totalPoints(long id);
 
     double averagePoints(long id);
