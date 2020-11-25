@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Map;
+
 @Setter
 @Getter
 @ToString
@@ -14,9 +16,9 @@ public class JsonEvent {
 
     private Type type;
 
-    private Payload payload;
+    private Map<String, Integer> payload;
 
-    public JsonEvent(long game, Type type, Payload payload) {
+    public JsonEvent(long game, Type type, Map<String, Integer> payload) {
         this.game = game;
         this.type = type;
         this.payload = payload;

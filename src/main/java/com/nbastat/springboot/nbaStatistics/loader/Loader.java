@@ -85,6 +85,7 @@ public class Loader {
 
     public void loadEvents(){
 
+
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<JsonEvent>> typeRef = new TypeReference<List<JsonEvent>>(){};
         File file = new File("data\\events.json");
@@ -96,20 +97,22 @@ public class Loader {
             List<JsonEvent> events = mapper.readValue(contentBuilder.toString(), typeRef);
 
             for (JsonEvent jsonEvent : events) {
+                System.out.println(jsonEvent);
                 Event event = new Event();
                 event.setType(jsonEvent.getType());
-                event.setValue(jsonEvent.getPayload().getValue());
+                if (jsonEvent.getPayload().get("value") != null)
+                    event.setValue(jsonEvent.getPayload().get("value"));
                 if (jsonEvent.getType().equals(Type.START)){
                     Game game = new Game();
                     game.setId(jsonEvent.getGame());
-                    // game.setGuestId();       // TODO naci guest i host tim po id-jevima iz jsonEventa i dodati objekte
+                    // game.setGuestId();       // TODO naci guest i host tim po id-jevima iz payload mape i dodati objekte
                     // game.setHostId();
                     // TODO dodati ovaj novi game objekat u bazu i kao atribut eventu
                 }  else {
                     // TODO naci game objekat po id-ju i dodati eventu kao atribut
                 }
 
-                // TODO dodati Player atribut po playerId (ako postoji)
+                // TODO dodati Player atribut po playerId iz payload mape (ako postoji)
                 // TODO dodati Event u bazu preko servisa
             }
 
