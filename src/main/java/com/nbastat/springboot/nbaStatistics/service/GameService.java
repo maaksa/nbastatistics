@@ -22,4 +22,6 @@ public interface GameService {
 
     Team awayTeam(long id);
 
+    int totalPointsForPlayer(long gameId, long playerId);
+
 }

@@ -66,4 +66,9 @@ public class GameServiceImpl implements GameService {
     public Team awayTeam(long id) {
         return gameRepository.awayTeam(id);
     }
+
+    @Override
+    public int totalPointsForPlayer(long gameId, long playerId) {
+        return gameRepository.totalPointsForPlayer(gameId, playerId);
+    }
 }

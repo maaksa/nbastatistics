@@ -58,6 +58,17 @@ public class GameController {
         allPlayers = hostTeam.getPlayers();
         allPlayers.addAll(guestTeam.getPlayers());
 
+        for (Player player : allPlayers) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("playerName", player.getFirstName() + " " + player.getLastName());
+            map.put("points", gameService.totalPointsForPlayer(id, player.getIdPlayer()));
+            /*map.put("awayTeam", gameService.awayTeam(game.getIdGame()).getName());
+            map.put("awayPoints", gameService.pointsForAwayTeam(game.getIdGame()));
+            map.put("finished", game.isFinished());
+            map.put("id", game.getIdGame());
+            mapList.add(map);*/
+        }
+
         model.addAttribute("players", allPlayers);
 
         return "games/list-players";
