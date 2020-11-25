@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.nbastat.springboot.nbaStatistics.service.PlayerService;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -55,6 +56,24 @@ public class PlayerController {
             player.put("averageRebounds", playerService.averageRebounds(id));
 
             return new ResponseEntity<Object>(player, HttpStatus.ACCEPTED);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/Query4", method = RequestMethod.GET)
+    public ResponseEntity<Object> statPlayer(Model model) {
+        try {
+            List<Player> players = playerService.maxPoints();
+
+            System.out.println(players);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String string = objectMapper.writeValueAsString(players);
+
+            return new ResponseEntity<Object>(string, HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
             e.printStackTrace();

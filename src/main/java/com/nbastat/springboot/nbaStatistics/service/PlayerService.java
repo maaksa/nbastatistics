@@ -26,4 +26,6 @@ public interface PlayerService {
 
     double averageRebounds(long id);
 
+    List<Player> maxPoints();
+
 }

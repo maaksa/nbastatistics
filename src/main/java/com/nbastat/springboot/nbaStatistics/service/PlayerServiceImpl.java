@@ -22,7 +22,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     public List<Player> doubledouble() {
         List<Player> allPlayers = findAll();
-        for (Player p: allPlayers){
+        for (Player p : allPlayers) {
             int points = totalPoints(p.getIdPlayer());
             int jumps = totalJumps(p.getIdPlayer());
             int assists = totalAssists(p.getIdPlayer());
@@ -88,6 +88,11 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public double averageRebounds(long id) {
         return playerRepository.averageRebounds(id);
+    }
+
+    @Override
+    public List<Player> maxPoints() {
+        return playerRepository.maxPoints();
     }
 
 

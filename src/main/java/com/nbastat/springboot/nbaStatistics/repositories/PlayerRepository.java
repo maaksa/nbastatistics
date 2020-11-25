@@ -31,4 +31,15 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     @Query("select p from Player p where p.team.id = :id")
     List<Player> findAllbyTeam(long id);
 
+    /* Prikazati igrače koji su postigli najviše poena, skokova i asistencija na nivou svih
+        utakmica (jedan igrač po kategoriji, ukoliko je više igrača postiglo isti maksimalni broj prikazati ih sve)*/
+    @Query("select p from Player p where p.idPlayer = max((select sum(e.value) from Player p join p.events as e on p.idPlayer = e.player.idPlayer where e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT))")
+    List<Player> maxPoints();
+
+    @Query("select max(sum(e.value)) from Player p join p.events e where p.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.ASSIST")
+    List<Player> maxAssists();
+
+    @Query("select max(sum(e.value)) from Player p join p.events e where p.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.JUMP")
+    List<Player> maxJumps();
+
 }
