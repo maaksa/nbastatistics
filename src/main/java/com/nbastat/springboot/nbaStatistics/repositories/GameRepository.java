@@ -26,6 +26,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Query("select g.guestTeam from Game g where g.idGame = :id")
     Team awayTeam(long id);
 
-    @Query("select sum(e.value) from Event e where e.game.idGame = :gameId and e.player.idPlayer = :playerId")
+    @Query("select sum(e.value) from Event e where e.game.idGame = :gameId and e.player.idPlayer = :playerId and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT")
     int totalPointsForPlayer(long gameId, long playerId);
+
+    @Query("select sum(e.value) from Event e where e.game.idGame = :gameId and e.player.idPlayer = :playerId and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.ASSIST")
+    int totalAssistsForPlayer(long gameId, long playerId);
+
+    @Query("select sum(e.value) from Event e where e.game.idGame = :gameId and e.player.idPlayer = :playerId and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.JUMP")
+    int totalJumpsForPlayer(long gameId, long playerId);
 }

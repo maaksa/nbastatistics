@@ -24,4 +24,8 @@ public interface GameService {
 
     int totalPointsForPlayer(long gameId, long playerId);
 
+    int totalAssistsForPlayer(long gameId, long playerId);
+
+    int totalJumpsForPlayer(long gameId, long playerId);
+
 }
