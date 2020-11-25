@@ -68,17 +68,17 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public int totalPointsForPlayer(long gameId, long playerId) {
+    public Integer totalPointsForPlayer(long gameId, long playerId) {
         return gameRepository.totalPointsForPlayer(gameId, playerId);
     }
 
     @Override
-    public int totalAssistsForPlayer(long gameId, long playerId) {
+    public Integer totalAssistsForPlayer(long gameId, long playerId) {
         return gameRepository.totalAssistsForPlayer(gameId, playerId);
     }
 
     @Override
-    public int totalJumpsForPlayer(long gameId, long playerId) {
+    public Integer totalJumpsForPlayer(long gameId, long playerId) {
         return gameRepository.totalJumpsForPlayer(gameId, playerId);
     }
 }
