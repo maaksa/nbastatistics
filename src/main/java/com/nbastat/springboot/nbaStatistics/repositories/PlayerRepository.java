@@ -13,6 +13,12 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     @Query("select sum(e.value) from Player p join p.events e where p.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT")
     int totalPoints(long id);
 
+    @Query("select sum(e.value) from Player p join p.events e where p.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.ASSIST")
+    int totalAssists(long id);
+
+    @Query("select sum(e.value) from Player p join p.events e where p.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.JUMP")
+    int totalJumps(long id);
+
     @Query("select avg(e.value) from Player p join p.events e where p.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.POINT")
     double averagePoints(long id);
 

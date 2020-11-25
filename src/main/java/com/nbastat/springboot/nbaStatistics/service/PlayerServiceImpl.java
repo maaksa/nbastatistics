@@ -19,6 +19,11 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerServiceImpl(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
+/*
+    public List<Player> doubledouble() {
+        List<Player> allPlayers = findAll();
+
+    } */
 
     @Override
     public List<Player> findAll() {
