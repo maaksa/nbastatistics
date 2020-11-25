@@ -3,32 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Query 1</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-        <!--/*@thymesVar id="mapList" type="java.util.List"*/-->
-        <div th:each="game : ${games}">
-            <table class="table table-bordered">
-                <tbody th:style="${game['finished'] ? 'background-color: green' : 'background-color: white'}">
-                    <tr>
-                        <td th:utext="${game['homeTeam']} +' - '+ ${game['awayTeam']}" colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${game['homeTeam']}" th:style="${game['homePoints'] > game['awayPoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
-                        <td th:text="${game['homePoints']}" th:style="${game['homePoints'] > game['awayPoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${game['awayTeam']}" th:style="${game['awayPoints'] > game['homePoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
-                        <td th:text="${game['awayPoints']}" th:style="${game['awayPoints'] > game['homePoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><a href="games/Query2">more details</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="container">
+    <!--/*@thymesVar id="mapList" type="java.util.List"*/-->
+    <div th:each="game : ${games}">
+        <table class="table table-bordered">
+            <tbody th:style="${game['finished'] ? 'background-color: green' : 'background-color: white'}">
+            <tr>
+                <td th:utext="${game['homeTeam']} +' - '+ ${game['awayTeam']}" colspan="2"></td>
+            </tr>
+            <tr>
+                <td th:text="${game['homeTeam']}"
+                    th:style="${game['homePoints'] > game['awayPoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
+                <td th:text="${game['homePoints']}"
+                    th:style="${game['homePoints'] > game['awayPoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
+            </tr>
+            <tr>
+                <td th:text="${game['awayTeam']}"
+                    th:style="${game['awayPoints'] > game['homePoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
+                <td th:text="${game['awayPoints']}"
+                    th:style="${game['awayPoints'] > game['homePoints'] ? 'font-weight: bold' : 'font-weight: normal'}"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><a th:href="@{./Query2/{id}(id=${game['id']})}">details</a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 </body>
 </html>
