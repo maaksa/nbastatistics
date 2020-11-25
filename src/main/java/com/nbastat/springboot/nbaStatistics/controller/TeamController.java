@@ -37,7 +37,6 @@ public class TeamController {
     public ResponseEntity<Object> sortByWinningPercentage(Model model){
         try {
             List<Team> teams = teamService.sortByWinningPercentage();
-            System.out.println(teams.size());
             ObjectMapper objectMapper = new ObjectMapper();
             String string = objectMapper.writeValueAsString(teams);
             return new ResponseEntity<Object>(string, HttpStatus.ACCEPTED);

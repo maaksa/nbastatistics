@@ -73,8 +73,6 @@ public class PlayerController {
         try {
             List<Player> players = playerService.maxPoints();
 
-            System.out.println(players);
-
             ObjectMapper objectMapper = new ObjectMapper();
             String string = objectMapper.writeValueAsString(players);
 
@@ -93,7 +91,6 @@ public class PlayerController {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String string = objectMapper.writeValueAsString(players);
-            System.out.println(string);
 
             return new ResponseEntity<Object>(string, HttpStatus.ACCEPTED);
 
