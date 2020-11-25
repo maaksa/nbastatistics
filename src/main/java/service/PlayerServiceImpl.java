@@ -36,5 +36,25 @@ public class PlayerServiceImpl implements PlayerService {
         return thePlayer;
     }
 
+    @Override
+    public int totalPoints(long id) {
+        return playerRepository.totalPoints(id);
+    }
+
+    @Override
+    public double averagePoints(long id) {
+        return playerRepository.averagePoints(id);
+    }
+
+    @Override
+    public double averageAssists(long id) {
+        return playerRepository.averageAssists(id);
+    }
+
+    @Override
+    public double averageRebounds(long id) {
+        return playerRepository.averageRebounds(id);
+    }
+
 
 }
