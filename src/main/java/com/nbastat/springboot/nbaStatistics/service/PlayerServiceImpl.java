@@ -1,12 +1,16 @@
-package service;
+package com.nbastat.springboot.nbaStatistics.service;
 
-import entity.Player;
+import com.nbastat.springboot.nbaStatistics.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
-import repositories.PlayerRepository;
+import com.nbastat.springboot.nbaStatistics.repositories.PlayerRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@Transactional
 public class PlayerServiceImpl implements PlayerService {
 
     private PlayerRepository playerRepository;

@@ -1,4 +1,4 @@
-package jsonEntity;
+package com.nbastat.springboot.nbaStatistics.jsonEntity;
 
 
 import lombok.Getter;

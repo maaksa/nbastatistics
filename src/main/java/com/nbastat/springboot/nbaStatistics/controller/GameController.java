@@ -1,11 +1,12 @@
-package controller;
+package com.nbastat.springboot.nbaStatistics.controller;
 
-import entity.Game;
+import com.nbastat.springboot.nbaStatistics.entity.Game;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import service.GameService;
+import com.nbastat.springboot.nbaStatistics.service.GameService;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class GameController {
 
     private GameService gameService;
 
+    @Autowired
     public GameController(GameService gameService){
         this.gameService = gameService;
     }

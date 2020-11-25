@@ -1,15 +1,17 @@
-package repositories;
+package com.nbastat.springboot.nbaStatistics.repositories;
 
-import entity.Game;
-import entity.Team;
+import com.nbastat.springboot.nbaStatistics.entity.Game;
+import com.nbastat.springboot.nbaStatistics.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
 
-    @Query("select ")
+    @Query("select g from Game g")
     List<Game> listGames();
 
     @Query("select sum(e.value) from Game g join fetch Event e where g.Id = :id and e.player.team.id = g.hostTeam.id")

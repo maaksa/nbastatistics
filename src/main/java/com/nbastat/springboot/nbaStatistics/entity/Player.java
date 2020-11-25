@@ -1,12 +1,11 @@
-package entity;
+package com.nbastat.springboot.nbaStatistics.entity;
 
-import entity.enums.Position;
+import com.nbastat.springboot.nbaStatistics.entity.enums.Position;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -20,10 +19,9 @@ public class Player {
     private long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id")
     private Team team;
 
-    @OneToMany(mappedBy = "playerId")
+    @OneToMany(mappedBy = "player")
     private List<Event> events;
 
     private String firstName;

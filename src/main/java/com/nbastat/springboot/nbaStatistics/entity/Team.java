@@ -1,4 +1,4 @@
-package entity;
+package com.nbastat.springboot.nbaStatistics.entity;
 
 import lombok.Getter;
 import lombok.Setter;

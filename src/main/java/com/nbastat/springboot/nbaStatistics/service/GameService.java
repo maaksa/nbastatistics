@@ -1,7 +1,7 @@
-package service;
+package com.nbastat.springboot.nbaStatistics.service;
 
-import entity.Game;
-import entity.Team;
+import com.nbastat.springboot.nbaStatistics.entity.Game;
+import com.nbastat.springboot.nbaStatistics.entity.Team;
 
 import java.util.List;
 

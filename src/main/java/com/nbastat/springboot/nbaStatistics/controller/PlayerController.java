@@ -1,13 +1,14 @@
-package controller;
+package com.nbastat.springboot.nbaStatistics.controller;
 
-import entity.Player;
+import com.nbastat.springboot.nbaStatistics.entity.Player;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import service.PlayerService;
+import com.nbastat.springboot.nbaStatistics.service.PlayerService;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class PlayerController {
 
     private PlayerService playerService;
 
+    @Autowired
     public PlayerController(PlayerService playerService){
         this.playerService = playerService;
     }
@@ -38,6 +40,7 @@ public class PlayerController {
         model.addAttribute("totalAssists", playerService.averageAssists(id));
         model.addAttribute("averageRebounds", playerService.averageRebounds(id));
 
+        //todo treba da vrati json objekat -> hash map je ok
         return "players/stat-player";
     }
 

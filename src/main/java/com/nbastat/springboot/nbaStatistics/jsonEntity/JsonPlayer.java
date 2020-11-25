@@ -1,11 +1,9 @@
-package jsonEntity;
+package com.nbastat.springboot.nbaStatistics.jsonEntity;
 
-import entity.enums.Position;
+import com.nbastat.springboot.nbaStatistics.entity.enums.Position;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import javax.persistence.*;
 
 @Setter
 @Getter

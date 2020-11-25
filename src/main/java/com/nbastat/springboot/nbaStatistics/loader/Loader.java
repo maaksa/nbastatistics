@@ -1,14 +1,18 @@
-package loader;
+package com.nbastat.springboot.nbaStatistics.loader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import entity.Event;
-import entity.Game;
-import entity.Player;
-import entity.Team;
-import entity.enums.Type;
-import jsonEntity.JsonEvent;
-import jsonEntity.JsonPlayer;
+import com.nbastat.springboot.nbaStatistics.entity.Event;
+import com.nbastat.springboot.nbaStatistics.entity.Game;
+import com.nbastat.springboot.nbaStatistics.entity.Player;
+import com.nbastat.springboot.nbaStatistics.entity.Team;
+import com.nbastat.springboot.nbaStatistics.entity.enums.Type;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonEvent;
+import com.nbastat.springboot.nbaStatistics.jsonEntity.JsonPlayer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import com.nbastat.springboot.nbaStatistics.service.TeamService;
+
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -16,12 +20,14 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Component("loader")
 public class Loader {
-    private static Loader instance;
 
-    public static Loader getInstance(){
-        if (instance == null) instance = new Loader();
-        return instance;
+    private TeamService teamService;
+
+    @Autowired
+    public Loader(TeamService teamService){
+        this.teamService = teamService;
     }
 
     public void loadTeams(){
@@ -37,8 +43,8 @@ public class Loader {
             List<Team> teams = mapper.readValue(contentBuilder.toString(), typeRef);
 
             for (Team t : teams) {
-
-
+                System.out.println(t.getId());
+                teamService.save(t);
                 // TODO dodati Team objekat u bazu preko servisa
             }
 
@@ -144,7 +150,7 @@ public class Loader {
                 player.setHeight((int)jsonPlayer.get("height"));
                 player.setAge((int)jsonPlayer.get("age"));
                 if (jsonPlayer.get("position").toString().equals(Position.CENTER.toString()))
-                    player.setPosition(entity.enums.Position.CENTER);
+                    player.setPosition(com.nbastat.springboot.nbaStatistics.entity.enums.Position.CENTER);
 
                // player.setPosition(jsonPlayer.get("position")); // TODO sta sa enumom?
                 // TODO dodati Team objekat po jsonPlayer.get("teamId") vrednosti

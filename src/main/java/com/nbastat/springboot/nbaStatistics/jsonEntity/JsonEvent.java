@@ -1,14 +1,9 @@
-package jsonEntity;
+package com.nbastat.springboot.nbaStatistics.jsonEntity;
 
-import entity.enums.Type;
+import com.nbastat.springboot.nbaStatistics.entity.enums.Type;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
 
 @Setter
 @Getter

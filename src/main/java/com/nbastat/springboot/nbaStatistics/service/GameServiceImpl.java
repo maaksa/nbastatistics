@@ -1,12 +1,16 @@
-package service;
+package com.nbastat.springboot.nbaStatistics.service;
 
-import entity.Game;
-import entity.Team;
+import com.nbastat.springboot.nbaStatistics.entity.Game;
+import com.nbastat.springboot.nbaStatistics.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
-import repositories.GameRepository;
+import com.nbastat.springboot.nbaStatistics.repositories.GameRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class GameServiceImpl implements GameService {
 
     private GameRepository gameRepository;
