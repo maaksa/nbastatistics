@@ -8,6 +8,8 @@ public interface PlayerService {
 
     List<Player> findAll();
 
+    List<Player> findAllbyTeam(long id);
+
     Player findById(long id);
 
     void save(Player player);

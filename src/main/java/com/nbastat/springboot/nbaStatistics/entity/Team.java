@@ -27,7 +27,8 @@ public class Team {
     @OneToMany(mappedBy = "guestTeam")
     private List<Game> gamesGuest;
 
-    @OneToMany(mappedBy = "team")
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "team")
     private List<Player> players;
 
     public Team(String name, String city) {

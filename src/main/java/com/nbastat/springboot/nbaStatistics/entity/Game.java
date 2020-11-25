@@ -17,6 +17,8 @@ public class Game {
     @Id
     private long idGame;
 
+    private boolean finished;
+
     @ManyToOne()
     //@JoinColumn(name = "id")
     private Team guestTeam;

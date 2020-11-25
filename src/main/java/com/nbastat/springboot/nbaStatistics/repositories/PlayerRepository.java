@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
@@ -19,5 +21,8 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     @Query("select avg(e.value) from Player p join fetch Event e where e.player.idPlayer = :id and e.type = com.nbastat.springboot.nbaStatistics.entity.enums.Type.JUMP")
     double averageRebounds(long id);
+
+    @Query("select p from Player p where p.team.id = :id")
+    List<Player> findAllbyTeam(long id);
 
 }

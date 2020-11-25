@@ -20,6 +20,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -102,7 +103,9 @@ public class Loader {
 
     public void loadEvents() {
 
-
+        List<Player> playersHost = null;
+        List<Player> playersGuest = null;
+        boolean assisted = false;
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<JsonEvent>> typeRef = new TypeReference<List<JsonEvent>>() {
         };
@@ -114,89 +117,87 @@ public class Loader {
             stream.forEach(s -> contentBuilder.append(s).append("\n"));
             List<JsonEvent> events = mapper.readValue(contentBuilder.toString(), typeRef);
 
-            for (JsonEvent jsonEvent : events) {
-                System.out.println(jsonEvent);
+            for (int i = 0; i < events.size(); i++) {
+                System.out.println(events.get(i));
+                JsonEvent jsonEvent = events.get(i);
                 Event event = new Event();
                 event.setType(jsonEvent.getType());
                 System.out.println(jsonEvent.getType());
-                if (jsonEvent.getPayload().get("value") != null)
-                    event.setValue(jsonEvent.getPayload().get("value"));
+                if (jsonEvent.getPayload().get("value") != null) {
+                    if (jsonEvent.getType().equals(Type.ASSIST) && jsonEvent.getPayload().get("value") == 1) {
+                        JsonEvent tempJsonEvent = events.get(i + 1);
+                        if (tempJsonEvent.getType().equals(Type.POINT)) {
+                            if (tempJsonEvent.getPayload().get("value") == 2 ||
+                                    tempJsonEvent.getPayload().get("value") == 3) {
+                                event.setValue(jsonEvent.getPayload().get("value"));
+                            } else {
+                                continue;
+                            }
+                            assisted = true;
+                        }
+                    } else if (jsonEvent.getType().equals(Type.POINT)) {
+                        if ((jsonEvent.getPayload().get("value") == 1 && !assisted) ||
+                                jsonEvent.getPayload().get("value") == 2 ||
+                                jsonEvent.getPayload().get("value") == 3) {
+                            assisted = false;
+                            event.setValue(jsonEvent.getPayload().get("value"));
+                        } else {
+                            continue;
+                        }
+                    } else if (jsonEvent.getType().equals(Type.JUMP) && jsonEvent.getPayload().get("value") == 1) {
+                        event.setValue(jsonEvent.getPayload().get("value"));
+                    }
+                }
                 if (jsonEvent.getType().equals(Type.START)) {
                     Game game = new Game();
                     game.setIdGame(jsonEvent.getGame());
+                    game.setFinished(false);
                     Team tHost = teamService.findById(jsonEvent.getPayload().get("hostId"));
                     Team tGuest = teamService.findById(jsonEvent.getPayload().get("guestId"));
+
+                    playersHost = playerService.findAllbyTeam(tHost.getId());
+                    playersGuest = playerService.findAllbyTeam(tGuest.getId());
+
                     game.setHostTeam(tHost);
                     game.setGuestTeam(tGuest);
                     gameService.save(game);
                     event.setGame(game);
                     eventService.save(event);
-                    // game.setGuestId();       // TODO naci guest i host tim po id-jevima iz payload mape i dodati objekte
-                    // game.setHostId();
-                    // TODO dodati ovaj novi game objekat u bazu i kao atribut eventu
+                } else if (jsonEvent.getType().equals(Type.END)) {
+                    Game game = gameService.findById(jsonEvent.getGame());
+                    game.setFinished(true);
+                    event.setGame(game);
+                    eventService.save(event);
+
                 } else {
                     Game game = gameService.findById(jsonEvent.getGame());
+                    game.setFinished(false);
+
+                    Team tHost = game.getHostTeam();
+                    Team tGuest = game.getGuestTeam();
+
                     if (jsonEvent.getPayload().get("playerId") != null) {
                         Player player = playerService.findById(jsonEvent.getPayload().get("playerId"));
-                        event.setPlayer(player);
+                        if (playersHost != null && playersGuest != null) {
+                            for (Player p : tHost.getPlayers()) {
+                                if (player.getIdPlayer() == p.getIdPlayer()) {
+                                    event.setPlayer(player);
+                                }
+                            }
+                            for (Player p : tGuest.getPlayers()) {
+                                if (player.getIdPlayer() == p.getIdPlayer()) {
+                                    event.setPlayer(player);
+                                }
+                            }
+                        }
                     }
                     event.setGame(game);
                     eventService.save(event);
-                    // TODO naci game objekat po id-ju i dodati eventu kao atribut
                 }
-
-                // TODO dodati Player atribut po playerId iz payload mape (ako postoji)
-                // TODO dodati Event u bazu preko servisa
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-/*
-    public void loadPlayers1(){
-
-        ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<Object>> typeRef = new TypeReference<List<Object>>(){};
-        File file = new File("data\\players.json");
-        String path = file.getAbsolutePath();
-        try {
-            Stream<String> stream = Files.lines(Paths.get(path), StandardCharsets.UTF_8);
-            StringBuilder contentBuilder = new StringBuilder();
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
-            List<Object> objects = mapper.readValue(contentBuilder.toString(), typeRef);
-
-            for (Object o : objects) {
-                Player player = new Player();
-                LinkedHashMap jsonPlayer = (LinkedHashMap)o;
-
-                player.setId(Integer.toUnsignedLong((int)jsonPlayer.get("id")));
-                player.setFirstName((String)jsonPlayer.get("firstName"));
-                player.setLastName((String)jsonPlayer.get("lastName"));
-                player.setNumber((int)jsonPlayer.get("number"));
-                player.setHeight((int)jsonPlayer.get("height"));
-                player.setAge((int)jsonPlayer.get("age"));
-                if (jsonPlayer.get("position").toString().equals(Position.CENTER.toString()))
-                    player.setPosition(com.nbastat.springboot.nbaStatistics.entity.enums.Position.CENTER);
-
-               // player.setPosition(jsonPlayer.get("position")); // TODO sta sa enumom?
-                // TODO dodati Team objekat po jsonPlayer.get("teamId") vrednosti
-                // TODO dodati player u bazu preko servisa
-                System.out.println(player);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-*/
 }
