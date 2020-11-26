@@ -16,7 +16,7 @@ public class TeamServiceImpl implements TeamService {
     private TeamRepository teamRepository;
 
     @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository){
+    public TeamServiceImpl(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
     }
 

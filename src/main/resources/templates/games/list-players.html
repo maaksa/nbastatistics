@@ -10,24 +10,24 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<h1 th:text="${host} + '-' + ${guest}"></h1>
+<h1 align="center" th:text="${host} + '-' + ${guest}"></h1>
 <div class="container">
     <table class="table table-bordered">
         <thead>
-            <tr th:style="'background-color: gray'">
-                <th>Player name</th>
-                <th>Points</th>
-                <th>Assists</th>
-                <th>Jumps</th>
-            </tr>
+        <tr th:style="'background-color: gray'">
+            <th>Player name</th>
+            <th>Points</th>
+            <th>Assists</th>
+            <th>Jumps</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="player : ${players}">
-                <td th:text="${player['playerName']}"></td>
-                <td th:text="${player['points'] != null} ? ${player['points']} : 0"></td>
-                <td th:text="${player['assists'] != null} ? ${player['assists']} : 0"></td>
-                <td th:text="${player['jumps'] != null} ? ${player['jumps']} : 0"></td>
-            </tr>
+        <tr th:each="player : ${players}">
+            <td th:text="${player['playerName']}"></td>
+            <td th:text="${player['points'] != null} ? ${player['points']} : 0"></td>
+            <td th:text="${player['assists'] != null} ? ${player['assists']} : 0"></td>
+            <td th:text="${player['jumps'] != null} ? ${player['jumps']} : 0"></td>
+        </tr>
         </tbody>
     </table>
 </div>

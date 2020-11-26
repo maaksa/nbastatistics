@@ -15,6 +15,7 @@ import com.nbastat.springboot.nbaStatistics.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.nbastat.springboot.nbaStatistics.service.TeamService;
+
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -93,6 +94,7 @@ public class Loader {
             e.printStackTrace();
         }
     }
+
     // TODO logovati  nevalidne
     public void loadEvents() {
 
@@ -102,7 +104,7 @@ public class Loader {
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<JsonEvent>> typeRef = new TypeReference<List<JsonEvent>>() {
         };
-        File file = new File("data\\events_full.json");
+        File file = new File("data\\events_full_correct.json");
         String path = file.getAbsolutePath();
         try {
             Stream<String> stream = Files.lines(Paths.get(path), StandardCharsets.UTF_8);
@@ -122,6 +124,12 @@ public class Loader {
                                     tempJsonEvent.getPayload().get("value") == 3) {
                                 event.setValue(jsonEvent.getPayload().get("value"));
                             } else {
+                            /*    Event eventErr = new Event();
+                                Game g = new Game();
+                                game.setIdGame(jsonEvent.getGame());
+                                eventErr.setType(jsonEvent.getType());*/
+
+
                                 continue;
                             }
                             assisted = true;
@@ -157,9 +165,9 @@ public class Loader {
                 } else if (jsonEvent.getType().equals(Type.END)) {
                     Game game = gameService.findById(jsonEvent.getGame());
                     Team team;
-                    if(game.getHostPoints() > game.getGuestPoints()){
+                    if (game.getHostPoints() > game.getGuestPoints()) {
                         team = game.getHostTeam();
-                    }else {
+                    } else {
                         team = game.getGuestTeam();
                     }
                     team.setWins(team.getWins() + 1);
@@ -170,7 +178,7 @@ public class Loader {
                     teamService.save(team);
                 } else {
                     Game game = gameService.findById(jsonEvent.getGame());
-                    if(game.isFinished()){
+                    if (game.isFinished()) {
                         continue;
                     }
 
@@ -197,10 +205,10 @@ public class Loader {
                             }
                         }
                     }
-                    if(event.getType().equals(Type.POINT)){
-                        if(isGuest) {
+                    if (event.getType().equals(Type.POINT)) {
+                        if (isGuest) {
                             game.setGuestPoints(game.getGuestPoints() + event.getValue());
-                        }else{
+                        } else {
                             game.setHostPoints(game.getHostPoints() + event.getValue());
                         }
                     }
