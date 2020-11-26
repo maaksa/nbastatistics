@@ -75,10 +75,6 @@ public class PlayerController {
         List<Integer> maxAssists = playerService.maxAssists();
         List<Integer> maxJumps = playerService.maxJumps();
 
-        System.out.println(maxPoints);
-        System.out.println(maxAssists);
-        System.out.println(maxJumps);
-
 
         Integer maxPoint = maxPoints.get(0);
         long maxAssist = maxAssists.get(0);

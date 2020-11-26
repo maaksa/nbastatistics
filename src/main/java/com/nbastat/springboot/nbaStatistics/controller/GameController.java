@@ -48,7 +48,6 @@ public class GameController {
 
     @RequestMapping(value = "/Query2/{id}", method = RequestMethod.GET)
     public String playerDetails(@PathVariable("id") long id, Model model) {
-        List<Player> players = new ArrayList<>();
         List<Player> allPlayers = null;
 
         Team hostTeam = gameService.homeTeam(id);
@@ -69,6 +68,8 @@ public class GameController {
         }
 
         model.addAttribute("players", mapList);
+        model.addAttribute("host", hostTeam.getName());
+        model.addAttribute("guest", guestTeam.getName());
 
         return "games/list-players";
     }

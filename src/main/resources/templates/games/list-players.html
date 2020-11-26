@@ -10,7 +10,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Utakmica</h1>
+<h1 th:text="${host} + '-' + ${guest}"></h1>
 <div class="container">
     <table class="table table-bordered">
         <thead>
@@ -24,9 +24,9 @@
         <tbody>
             <tr th:each="player : ${players}">
                 <td th:text="${player['playerName']}"></td>
-                <td th:text="${player['points']}"></td>
-                <td th:text="${player['assists']}"></td>
-                <td th:text="${player['jumps']}"></td>
+                <td th:text="${player['points'] != null} ? ${player['points']} : 0"></td>
+                <td th:text="${player['assists'] != null} ? ${player['assists']} : 0"></td>
+                <td th:text="${player['jumps'] != null} ? ${player['jumps']} : 0"></td>
             </tr>
         </tbody>
     </table>
