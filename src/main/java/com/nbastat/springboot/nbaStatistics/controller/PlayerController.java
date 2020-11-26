@@ -70,18 +70,57 @@ public class PlayerController {
 
     @RequestMapping(value = "/Query4", method = RequestMethod.GET)
     public ResponseEntity<Object> statPlayer(Model model) {
-        try {
-            List<Player> players = playerService.maxPoints();
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            String string = objectMapper.writeValueAsString(players);
+        List<Integer> maxPoints = playerService.maxPoints();
+        List<Integer> maxAssists = playerService.maxAssists();
+        List<Integer> maxJumps = playerService.maxJumps();
 
-            return new ResponseEntity<Object>(string, HttpStatus.ACCEPTED);
+        System.out.println(maxPoints);
+        System.out.println(maxAssists);
+        System.out.println(maxJumps);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        Integer maxPoint = maxPoints.get(0);
+        long maxAssist = maxAssists.get(0);
+        long maxJump = maxJumps.get(0);
+
+        List<Player> playersPoints = playerService.maxPointsPlayer(maxPoint);
+        List<Player> playersAssists = playerService.maxAssistsPlayer(maxAssist);
+        List<Player> playersJumps = playerService.maxJumpsPlayer(maxJump);
+
+        ObjectMapper mapper = new ObjectMapper();
+        List<ObjectNode> listNodes = new ArrayList<>();
+
+        for (Player p : playersPoints) {
+            ObjectNode player = mapper.createObjectNode();
+            player.put("id", p.getIdPlayer());
+            player.put("firstName", p.getFirstName());
+            player.put("lastName", p.getLastName());
+            player.put("totalPoints", maxPoint);
+            listNodes.add(player);
         }
+        for (Player p : playersAssists) {
+            ObjectNode player = mapper.createObjectNode();
+            player.put("id", p.getIdPlayer());
+            player.put("firstName", p.getFirstName());
+            player.put("lastName", p.getLastName());
+            player.put("totalAssists", maxAssist);
+            listNodes.add(player);
+        }
+        for (Player p : playersJumps) {
+            ObjectNode player = mapper.createObjectNode();
+            player.put("id", p.getIdPlayer());
+            player.put("firstName", p.getFirstName());
+            player.put("lastName", p.getLastName());
+            player.put("totalJumps", maxJump);
+            listNodes.add(player);
+        }
+        System.out.println(maxPoint);
+        System.out.println(maxAssist);
+        System.out.println(maxJump);
+
+        return new ResponseEntity<Object>(listNodes, HttpStatus.ACCEPTED);
+
     }
 
     @GetMapping("/Query5")

@@ -30,6 +30,17 @@ public interface PlayerService {
 
     double averageRebounds(long id);
 
-    List<Player> maxPoints();
+    List<Integer> maxPoints();
+
+    List<Integer> maxAssists();
+
+    List<Integer> maxJumps();
+
+    List<Player> maxPointsPlayer(long max);
+
+    List<Player> maxAssistsPlayer(long max);
+
+    List<Player> maxJumpsPlayer(long max);
+
 
 }

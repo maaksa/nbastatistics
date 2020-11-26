@@ -27,31 +27,31 @@ public class PlayerServiceImpl implements PlayerService {
     public List<JsonPlayerMinimal> doubledouble() {
         List<Player> allPlayers = findAll();
         HashMap<Player, Integer> doubles = new HashMap<>();
-        for (Player p: allPlayers){
+        for (Player p : allPlayers) {
             int points = totalPoints(p.getIdPlayer());
             int jumps = totalJumps(p.getIdPlayer());
             int assists = totalAssists(p.getIdPlayer());
             int maxDouble = 0;
-            if (points > 9 && jumps > 9){
-                if (points+jumps > maxDouble)
-                    maxDouble = points+jumps;
+            if (points > 9 && jumps > 9) {
+                if (points + jumps > maxDouble)
+                    maxDouble = points + jumps;
             }
-            if (points > 9 && assists > 9){
-                if (points+assists > maxDouble)
-                    maxDouble = points+assists;
+            if (points > 9 && assists > 9) {
+                if (points + assists > maxDouble)
+                    maxDouble = points + assists;
             }
-            if (jumps > 9 && assists > 9){
-                if (jumps+assists > maxDouble)
-                    maxDouble = jumps+assists;
+            if (jumps > 9 && assists > 9) {
+                if (jumps + assists > maxDouble)
+                    maxDouble = jumps + assists;
             }
             doubles.put(p, maxDouble);
         }
-        Stream<Map.Entry<Player,Integer>> sorted = doubles.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()));
+        Stream<Map.Entry<Player, Integer>> sorted = doubles.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()));
         Map top5 = sorted.limit(5).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
 
         List<JsonPlayerMinimal> result = new ArrayList<>();
-        for (Object o: top5.keySet()){
-            Player p = (Player)o;
+        for (Object o : top5.keySet()) {
+            Player p = (Player) o;
             JsonPlayerMinimal jp = new JsonPlayerMinimal();
             jp.setFirstName(p.getFirstName());
             jp.setLastName(p.getLastName());
@@ -123,8 +123,33 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<Player> maxPoints() {
+    public List<Integer> maxPoints() {
         return playerRepository.maxPoints();
+    }
+
+    @Override
+    public List<Integer> maxAssists() {
+        return playerRepository.maxAssists();
+    }
+
+    @Override
+    public List<Integer> maxJumps() {
+        return playerRepository.maxJumps();
+    }
+
+    @Override
+    public List<Player> maxPointsPlayer(long max) {
+        return playerRepository.maxPointsPlayer(max);
+    }
+
+    @Override
+    public List<Player> maxAssistsPlayer(long max) {
+        return playerRepository.maxAssistsPlayer(max);
+    }
+
+    @Override
+    public List<Player> maxJumpsPlayer(long max) {
+        return playerRepository.maxJumpsPlayer(max);
     }
 
 
