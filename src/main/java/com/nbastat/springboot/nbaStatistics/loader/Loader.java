@@ -178,7 +178,9 @@ public class Loader {
                     teamService.save(team);
                 } else {
                     Game game = gameService.findById(jsonEvent.getGame());
-                    if (game.isFinished()) {
+                    if(game.isFinished()){
+                        System.out.println("Invalid event - game already ended");
+                        System.out.println(jsonEvent);
                         continue;
                     }
 
@@ -205,8 +207,8 @@ public class Loader {
                             }
                         }
                     }
-                    if (event.getType().equals(Type.POINT)) {
-                        if (isGuest) {
+                    if(event.getType().equals(Type.POINT)){
+                        if(isGuest) {
                             game.setGuestPoints(game.getGuestPoints() + event.getValue());
                         } else {
                             game.setHostPoints(game.getHostPoints() + event.getValue());
